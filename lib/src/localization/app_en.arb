@@ -1,0 +1,6 @@
+{
+  "appTitle": "whatsapp_sentiment",
+  "@appTitle": {
+    "description": "The title of the application"
+  }
+}
