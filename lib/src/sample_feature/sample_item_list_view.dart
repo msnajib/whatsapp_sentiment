@@ -5,31 +5,35 @@ import 'chats.dart';
 import 'sample_item_details_view.dart';
 
 /// Displays a list of SampleItems.
-class SampleItemListView extends StatelessWidget {
-  const SampleItemListView({
-    super.key,
-    this.items = const [
-      Chats(
-        name: "Grace",
-        type: "personal_chat",
-        id: 2730825451,
-        messages: [
-          Message(
-            id: 1980499,
-            type: "massage",
-            date: "2020-01-01T00:00:02",
-            from: "Henry",
-            fromId: 4325636679,
-            text: "It's 2020...",
-          )
-        ],
-      ),
-    ],
-  });
 
+class SampleItemListView extends StatefulWidget {
+  const SampleItemListView({super.key});
   static const routeName = '/';
 
-  final List<Chats> items;
+  @override
+  State<SampleItemListView> createState() => _SampleItemListViewState();
+}
+
+class _SampleItemListViewState extends State<SampleItemListView> {
+  late List<Chats> items = [
+    Chats(
+      name: "Grace",
+      type: "personal_chat",
+      id: 2730825451,
+      messages: [
+        Messages(
+          id: 1980499,
+          type: "massage",
+          date: DateTime.now(),
+          from: "Henry",
+          fromId: 4325636679,
+          text: "It's 2020...",
+          prevMessage: null,
+          nextMessage: null,
+        )
+      ],
+    ),
+  ];
 
   @override
   Widget build(BuildContext context) {

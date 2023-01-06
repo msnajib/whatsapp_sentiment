@@ -1,31 +1,35 @@
 class Chats {
-  const Chats({
+  Chats({
     required this.name,
     required this.type,
     required this.id,
     required this.messages,
   });
 
-  final String name;
-  final String type;
-  final int id;
-  final List<Message> messages;
+  String name;
+  String type;
+  int id;
+  List<Messages> messages;
 }
 
-class Message {
-  const Message({
+class Messages {
+  Messages({
     required this.id,
     required this.type,
     required this.date,
     required this.from,
     required this.fromId,
     required this.text,
+    this.prevMessage,
+    this.nextMessage,
   });
 
-  final int id;
-  final String type;
-  final String date;
-  final String from;
-  final int fromId;
-  final String text;
+  int id;
+  String type;
+  DateTime date;
+  String from;
+  int fromId;
+  String text;
+  Messages? prevMessage;
+  Messages? nextMessage;
 }

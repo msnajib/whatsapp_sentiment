@@ -1,18 +1,22 @@
 import 'dart:math' as math; // import this
 
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
 import 'package:whatsapp_sentiment/src/widgets/custom_shape.dart';
 
 class BubbleChatReply extends StatelessWidget {
-  final String message;
   final bool tail;
   final bool replay;
+  final String message;
+  final DateTime sendAt;
+
   const BubbleChatReply({
     Key? key,
     bool? tail,
     bool? replay,
     required this.message,
+    required this.sendAt,
   })  : tail = tail ?? false,
         replay = replay ?? false,
         super(key: key);
@@ -105,11 +109,11 @@ class BubbleChatReply extends StatelessWidget {
                         fontSize: 16.0,
                       ),
                     ),
-                    const Padding(
-                      padding: EdgeInsets.only(top: 6.0),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 6.0),
                       child: Text(
-                        '9:57 am',
-                        style: TextStyle(
+                        DateFormat.jm().format(sendAt).toString().toLowerCase(),
+                        style: const TextStyle(
                           fontSize: 12.0,
                           color: Colors.white30,
                         ),
@@ -121,9 +125,6 @@ class BubbleChatReply extends StatelessWidget {
             ),
           ),
         ),
-        tail == true
-            ? CustomPaint(painter: CustomShape(AppColor.black))
-            : const SizedBox(),
       ],
     ));
 

@@ -1,53 +1,133 @@
 import 'package:flutter/material.dart';
+import 'package:grouped_list/grouped_list.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_me.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_reply.dart';
 
 import 'chats.dart';
 
-/// Displays detailed information about a SampleItem.
-class SampleItemDetailsView extends StatelessWidget {
-  // refrence JSON https://community.rstudio.com/t/how-to-read-telegram-chat-json/92017
-  const SampleItemDetailsView({
-    super.key,
-    this.chats = const [
-      Chats(
-        name: "Grace",
-        type: "personal_chat",
-        id: 2730825451,
-        messages: [
-          Message(
-            id: 1980499,
-            type: "massage",
-            date: "2020-01-01T00:00:02",
-            from: "Henry",
-            fromId: 4325636679,
-            text: "It's 2020...",
-          ),
-          Message(
-            id: 1980499,
-            type: "massage",
-            date: "2020-01-01T00:00:02",
-            from: "Henry",
-            fromId: 4325636679,
-            text: "It's 2020...",
-          ),
-          Message(
-            id: 1980499,
-            type: "massage",
-            date: "2020-01-01T00:00:02",
-            from: "Henry",
-            fromId: 4325636679,
-            text: "It's 2020...",
-          ),
-        ],
-      ),
-    ],
-  });
-
+class SampleItemDetailsView extends StatefulWidget {
+  const SampleItemDetailsView({super.key});
   static const routeName = '/sample_item';
 
-  final List<Chats> chats;
+  @override
+  State<SampleItemDetailsView> createState() => _SampleItemDetailsViewState();
+}
+
+/// Displays detailed information about a SampleItem.
+class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
+  // refrence JSON https://community.rstudio.com/t/how-to-read-telegram-chat-json/92017
+
+  late List<Chats> chats = [
+    Chats(
+      name: "Grace",
+      type: "personal_chat",
+      id: 2730825451,
+      messages: messages,
+    ),
+  ];
+  late List<Messages> messages = [
+    Messages(
+      id: 1980499,
+      type: "massage",
+      date: DateTime.parse("2020-01-01T00:00:02"),
+      from: "Henry",
+      fromId: 4325636679,
+      text: "Pesan 1",
+      prevMessage: null,
+      nextMessage: Messages(
+        id: 1980500,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:04"),
+        from: "Henry",
+        fromId: 4325636679,
+        text: "Pesan 2",
+      ),
+    ),
+    Messages(
+      id: 1980500,
+      type: "massage",
+      date: DateTime.parse("2020-01-01T00:00:04"),
+      from: "Henry",
+      fromId: 4325636679,
+      text: "Pesan 2",
+      prevMessage: Messages(
+        id: 1980499,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:02"),
+        from: "Henry",
+        fromId: 4325636679,
+        text: "Pesan 1",
+      ),
+      nextMessage: null,
+    ),
+    Messages(
+      id: 1980501,
+      type: "massage",
+      date: DateTime.parse("2020-01-01T00:00:05"),
+      from: "Grace",
+      fromId: 4720225552,
+      text: "Pesan Reply 1",
+      prevMessage: null,
+      nextMessage: Messages(
+        id: 1984501,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:05"),
+        from: "Grace",
+        fromId: 4720225552,
+        text: "Pesan Reply 2",
+      ),
+    ),
+    Messages(
+      id: 1984501,
+      type: "massage",
+      date: DateTime.parse("2020-01-01T00:00:05"),
+      from: "Grace",
+      fromId: 4720225552,
+      text: "Pesan Reply 2",
+      prevMessage: Messages(
+        id: 1980501,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:05"),
+        from: "Grace",
+        fromId: 4720225552,
+        text: "Pesan Reply 1",
+      ),
+      nextMessage: Messages(
+        id: 1954501,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:05"),
+        from: "Grace",
+        fromId: 4720225552,
+        text: "Pesan Reply 3",
+      ),
+    ),
+    Messages(
+      id: 1954501,
+      type: "massage",
+      date: DateTime.parse("2020-01-01T00:00:05"),
+      from: "Grace",
+      fromId: 4720225552,
+      text: "Pesan Reply 3",
+      prevMessage: Messages(
+        id: 1984501,
+        type: "massage",
+        date: DateTime.parse("2020-01-01T00:00:05"),
+        from: "Grace",
+        fromId: 4720225552,
+        text: "Pesan Reply 2",
+      ),
+      nextMessage: null,
+    ),
+  ];
+
+  late ScrollController _scrollController;
+
+  @override
+  void initState() {
+    _scrollController = ScrollController();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -117,46 +197,33 @@ class SampleItemDetailsView extends StatelessWidget {
             ),
             backgroundColor: AppColor.black,
           ),
-          // body: Wrap(
-          //   children: [
-          //     Column(
-          //       children: const [
-          //         BubbleChatMe(
-          //           tail: true,
-          //           message: 'Bro, lagi dimana?',
-          //         ),
-          //         BubbleChatMe(
-          //           message: 'Lagi butuh bantuan, nih!',
-          //         ),
-          //       ],
-          //     ),
-          //     Column(
-          //       children: const [
-          //         BubbleChatReply(
-          //           tail: true,
-          //           message: 'lagi di tempat kerja, cuy\nbantuan apa ya?',
-          //         ),
-          //       ],
-          //     ),
-          //   ]
-          //       .map((e) => Padding(
-          //             child: e,
-          //             padding: const EdgeInsets.symmetric(
-          //               vertical: 4.0,
-          //             ),
-          //           ))
-          //       .toList(),
-          // ),
-          body: ListView.builder(
-            restorationId: 'sampleItemListView',
-            itemCount: chats[0].messages.length,
-            itemBuilder: (BuildContext context, int index) {
-              final item = chats[0].messages[index];
-
-              return BubbleChatMe(
-                tail: true,
-                message: item.text,
-              );
+          body: GroupedListView<Messages, DateTime>(
+            controller: _scrollController,
+            elements: messages,
+            order: GroupedListOrder.DESC,
+            reverse: true,
+            floatingHeader: true,
+            useStickyGroupSeparators: true,
+            groupBy: (Messages item) => DateTime(
+              item.date.year,
+              item.date.month,
+              item.date.day,
+            ),
+            groupHeaderBuilder: (group) => Container(height: 8.0),
+            itemBuilder: (_, Messages item) {
+              if (item.from == chats[0].name) {
+                return BubbleChatReply(
+                  tail: item.prevMessage == null,
+                  message: item.text,
+                  sendAt: item.date,
+                );
+              } else {
+                return BubbleChatMe(
+                  tail: item.prevMessage == null,
+                  message: item.text,
+                  sendAt: item.date,
+                );
+              }
             },
           ),
           bottomNavigationBar: Container(

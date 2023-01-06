@@ -1,16 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
 import 'package:whatsapp_sentiment/src/widgets/custom_shape.dart';
 
 class BubbleChatMe extends StatelessWidget {
-  final String message;
   final bool tail;
   final bool replay;
+  final String message;
+  final DateTime sendAt;
+
   const BubbleChatMe({
     Key? key,
     bool? tail,
     bool? replay,
     required this.message,
+    required this.sendAt,
   })  : tail = tail ?? false,
         replay = replay ?? false,
         super(key: key);
@@ -98,15 +102,18 @@ class BubbleChatMe extends StatelessWidget {
                       padding: const EdgeInsets.only(top: 6.0),
                       child: Wrap(
                         spacing: 2.0,
-                        children: const [
+                        children: [
                           Text(
-                            '9:57 am',
-                            style: TextStyle(
+                            DateFormat.jm()
+                                .format(sendAt)
+                                .toString()
+                                .toLowerCase(),
+                            style: const TextStyle(
                               fontSize: 12.0,
                               color: Colors.white30,
                             ),
                           ),
-                          Icon(
+                          const Icon(
                             Icons.done_all_rounded,
                             color: AppColor.blue,
                             size: 14.0,
