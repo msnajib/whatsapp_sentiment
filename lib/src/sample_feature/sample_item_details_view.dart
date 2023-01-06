@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
+import 'package:whatsapp_sentiment/src/utils/date.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_me.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_reply.dart';
 
@@ -30,7 +31,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     Messages(
       id: 1980499,
       type: "massage",
-      date: DateTime.parse("2020-01-01T00:00:02"),
+      date: DateTime.parse("2023-01-01T00:00:02"),
       from: "Henry",
       fromId: 4325636679,
       text: "Pesan 1",
@@ -38,7 +39,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
       nextMessage: Messages(
         id: 1980500,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:04"),
+        date: DateTime.parse("2023-01-01T00:22:04"),
         from: "Henry",
         fromId: 4325636679,
         text: "Pesan 2",
@@ -47,14 +48,14 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     Messages(
       id: 1980500,
       type: "massage",
-      date: DateTime.parse("2020-01-01T00:00:04"),
+      date: DateTime.parse("2023-01-01T00:22:04"),
       from: "Henry",
       fromId: 4325636679,
       text: "Pesan 2",
       prevMessage: Messages(
         id: 1980499,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:02"),
+        date: DateTime.parse("2023-01-01T00:00:02"),
         from: "Henry",
         fromId: 4325636679,
         text: "Pesan 1",
@@ -64,7 +65,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     Messages(
       id: 1980501,
       type: "massage",
-      date: DateTime.parse("2020-01-01T00:00:05"),
+      date: DateTime.parse("2023-01-01T00:00:05"),
       from: "Grace",
       fromId: 4720225552,
       text: "Pesan Reply 1",
@@ -72,7 +73,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
       nextMessage: Messages(
         id: 1984501,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:05"),
+        date: DateTime.parse("2023-01-01T00:00:05"),
         from: "Grace",
         fromId: 4720225552,
         text: "Pesan Reply 2",
@@ -81,14 +82,14 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     Messages(
       id: 1984501,
       type: "massage",
-      date: DateTime.parse("2020-01-01T00:00:05"),
+      date: DateTime.parse("2023-01-01T00:00:05"),
       from: "Grace",
       fromId: 4720225552,
       text: "Pesan Reply 2",
       prevMessage: Messages(
         id: 1980501,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:05"),
+        date: DateTime.parse("2023-01-01T00:00:05"),
         from: "Grace",
         fromId: 4720225552,
         text: "Pesan Reply 1",
@@ -96,7 +97,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
       nextMessage: Messages(
         id: 1954501,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:05"),
+        date: DateTime.parse("2023-01-07T00:00:05"),
         from: "Grace",
         fromId: 4720225552,
         text: "Pesan Reply 3",
@@ -105,14 +106,14 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
     Messages(
       id: 1954501,
       type: "massage",
-      date: DateTime.parse("2020-01-01T00:00:05"),
+      date: DateTime.parse("2023-01-07T00:00:05"),
       from: "Grace",
       fromId: 4720225552,
       text: "Pesan Reply 3",
       prevMessage: Messages(
         id: 1984501,
         type: "massage",
-        date: DateTime.parse("2020-01-01T00:00:05"),
+        date: DateTime.parse("2023-01-01T00:00:05"),
         from: "Grace",
         fromId: 4720225552,
         text: "Pesan Reply 2",
@@ -209,17 +210,46 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
               item.date.month,
               item.date.day,
             ),
-            groupHeaderBuilder: (group) => Container(height: 8.0),
+            groupHeaderBuilder: (group) {
+              return Wrap(
+                alignment: WrapAlignment.center,
+                children: [
+                  Container(
+                    padding: const EdgeInsets.symmetric(
+                      vertical: 4.0,
+                      horizontal: 8.0,
+                    ),
+                    margin: const EdgeInsets.symmetric(vertical: 8.0),
+                    decoration: const BoxDecoration(
+                      color: AppColor.black,
+                      borderRadius: BorderRadius.all(Radius.circular(6.0)),
+                    ),
+                    child: Text(
+                      date(group.date).toString(),
+                      style: const TextStyle(
+                        fontSize: 12.0,
+                        fontWeight: FontWeight.w400,
+                        color: AppColor.grey,
+                      ),
+                    ),
+                  ),
+                ],
+              );
+            },
             itemBuilder: (_, Messages item) {
               if (item.from == chats[0].name) {
                 return BubbleChatReply(
-                  tail: item.prevMessage == null,
+                  tail: item.prevMessage == null ||
+                      item.date.day != item.prevMessage?.date.day ||
+                      item.date.hour != item.prevMessage?.date.hour,
                   message: item.text,
                   sendAt: item.date,
                 );
               } else {
                 return BubbleChatMe(
-                  tail: item.prevMessage == null,
+                  tail: item.prevMessage == null ||
+                      item.date.day != item.prevMessage?.date.day ||
+                      item.date.hour != item.prevMessage?.date.hour,
                   message: item.text,
                   sendAt: item.date,
                 );
