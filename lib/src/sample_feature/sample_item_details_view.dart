@@ -164,6 +164,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
                       style: TextStyle(
                         fontSize: 13.0,
                         fontWeight: FontWeight.w400,
+                        color: Colors.white,
                         height: 1.4,
                       ),
                     ),
@@ -194,6 +195,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             titleTextStyle: const TextStyle(
               fontSize: 16.0,
               fontWeight: FontWeight.w500,
+              color: Colors.white,
               height: 1.0,
             ),
             backgroundColor: AppColor.black,
