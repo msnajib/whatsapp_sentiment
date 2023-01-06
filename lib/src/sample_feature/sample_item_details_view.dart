@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
+import 'package:whatsapp_sentiment/src/openai/completion_api.dart';
+import 'package:whatsapp_sentiment/src/openai/completion_res.dart';
 import 'package:whatsapp_sentiment/src/utils/date.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_me.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_reply.dart';
@@ -123,10 +125,12 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
   ];
 
   late ScrollController _scrollController;
+  CompletionsApi completionsApi = new CompletionsApi();
 
   @override
   void initState() {
     _scrollController = ScrollController();
+
     super.initState();
   }
 
@@ -240,12 +244,23 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             },
             itemBuilder: (_, Messages item) {
               if (item.from == chats[0].name) {
-                return BubbleChatReply(
-                  tail: item.prevMessage == null ||
-                      item.date.day != item.prevMessage?.date.day ||
-                      item.date.hour != item.prevMessage?.date.hour,
-                  message: item.text,
-                  sendAt: item.date,
+                return GestureDetector(
+                  onTap: () async {
+                    try {
+                      final res =
+                          await completionsApi.getNewForecast('Aku benci kamu');
+                      debugPrint('_xxx Y Sentiment is: ${res.choices[0].text}');
+                    } catch (e) {
+                      debugPrint('_xxx Y Error $e');
+                    }
+                  },
+                  child: BubbleChatReply(
+                    tail: item.prevMessage == null ||
+                        item.date.day != item.prevMessage?.date.day ||
+                        item.date.hour != item.prevMessage?.date.hour,
+                    message: item.text,
+                    sendAt: item.date,
+                  ),
                 );
               } else {
                 return BubbleChatMe(
@@ -258,6 +273,32 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
               }
             },
           ),
+          // body: FutureBuilder(
+          //   future: completionsApi.getNewForecast(),
+          //   builder: (BuildContext context,
+          //       AsyncSnapshot<CompletionsResponse> snapshot) {
+          //     if (snapshot.hasData) {
+          //       // the request succeeded and we have data
+          //       return Text(
+          //         snapshot.data!.choices[0].text,
+          //         style: const TextStyle(
+          //           color: Colors.white,
+          //         ),
+          //       );
+          //     } else if (snapshot.hasError) {
+          //       // the request failed
+          //       return Text(
+          //         'Error: ${snapshot.error}',
+          //         style: const TextStyle(
+          //           color: Colors.white,
+          //         ),
+          //       );
+          //     } else {
+          //       // the request is still loading
+          //       return CircularProgressIndicator();
+          //     }
+          //   },
+          // ),
           bottomNavigationBar: Container(
             margin: const EdgeInsets.all(4.0),
             color: Colors.transparent,
