@@ -10,6 +10,7 @@ class BubbleChatReply extends StatelessWidget {
   final bool replay;
   final String message;
   final DateTime sendAt;
+  final Color? bgColor;
 
   const BubbleChatReply({
     Key? key,
@@ -17,6 +18,7 @@ class BubbleChatReply extends StatelessWidget {
     bool? replay,
     required this.message,
     required this.sendAt,
+    this.bgColor,
   })  : tail = tail ?? false,
         replay = replay ?? false,
         super(key: key);
@@ -43,9 +45,9 @@ class BubbleChatReply extends StatelessWidget {
               horizontal: 10.0,
               vertical: 8.0,
             ),
-            decoration: const BoxDecoration(
-              color: AppColor.black,
-              borderRadius: BorderRadius.all(Radius.circular(12.0)),
+            decoration: BoxDecoration(
+              color: bgColor ?? Colors.black,
+              borderRadius: const BorderRadius.all(Radius.circular(12.0)),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,

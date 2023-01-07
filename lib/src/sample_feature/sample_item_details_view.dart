@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:grouped_list/grouped_list.dart';
 import 'package:whatsapp_sentiment/src/constants/colors.dart';
 import 'package:whatsapp_sentiment/src/openai/completion_api.dart';
-import 'package:whatsapp_sentiment/src/openai/completion_res.dart';
+
 import 'package:whatsapp_sentiment/src/utils/date.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_me.dart';
 import 'package:whatsapp_sentiment/src/widgets/bubble_chat_reply.dart';
+import 'package:whatsapp_sentiment/src/widgets/react_dialog.dart';
 
 import 'chats.dart';
 
@@ -127,6 +128,11 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
   late ScrollController _scrollController;
   CompletionsApi completionsApi = new CompletionsApi();
 
+  bool _isLongPressed = false;
+  int? _idMessageHighlight;
+
+  double? _dx, _dy;
+
   @override
   void initState() {
     _scrollController = ScrollController();
@@ -244,22 +250,64 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             },
             itemBuilder: (_, Messages item) {
               if (item.from == chats[0].name) {
-                return GestureDetector(
-                  onTap: () async {
-                    try {
-                      final res =
-                          await completionsApi.getNewForecast('Aku benci kamu');
-                      debugPrint('_xxx Y Sentiment is: ${res.choices[0].text}');
-                    } catch (e) {
-                      debugPrint('_xxx Y Error $e');
-                    }
+                return InkWell(
+                  // onTap: () async {
+                  //   try {
+                  //     final res =
+                  //         await completionsApi.getNewForecast('Aku benci kamu');
+                  //     debugPrint('_xxx Y Sentiment is: ${res.choices[0].text}');
+                  //   } catch (e) {
+                  //     debugPrint('_xxx Y Error $e');
+                  //   }
+                  // },
+                  // onLongPress: () {
+                  //   setState(() {
+                  //     _isLongPressed = true;
+                  //   });
+                  // },
+                  // onLongPressUp: () {
+                  //   setState(() {
+                  //     _isLongPressed = false;
+                  //   });
+                  // },
+                  onTapDown: (details) {
+                    _dx = details.globalPosition.dx;
+                    _dy = details.globalPosition.dy;
                   },
-                  child: BubbleChatReply(
-                    tail: item.prevMessage == null ||
-                        item.date.day != item.prevMessage?.date.day ||
-                        item.date.hour != item.prevMessage?.date.hour,
-                    message: item.text,
-                    sendAt: item.date,
+
+                  ///
+                  onLongPress: () {
+                    setState(() {
+                      _isLongPressed = true;
+                      _idMessageHighlight = item.id;
+                    });
+                    showDialog(
+                      context: context,
+                      barrierColor: Colors.transparent,
+                      builder: (context) => ReactDialog(dx: _dx!, dy: _dy!),
+                    ).whenComplete(
+                      () => setState(() {
+                        _isLongPressed = false;
+                        _idMessageHighlight = null;
+                      }),
+                    );
+                  },
+                  highlightColor: AppColor.green2.withOpacity(0.5),
+                  splashColor: AppColor.green2.withOpacity(0.5),
+                  child: Container(
+                    color: _isLongPressed && _idMessageHighlight == item.id
+                        ? AppColor.green2.withOpacity(0.5)
+                        : Colors.transparent,
+                    child: BubbleChatReply(
+                      bgColor: _isLongPressed && _idMessageHighlight == item.id
+                          ? AppColor.green2.withOpacity(0.5)
+                          : AppColor.black,
+                      tail: item.prevMessage == null ||
+                          item.date.day != item.prevMessage?.date.day ||
+                          item.date.hour != item.prevMessage?.date.hour,
+                      message: item.text,
+                      sendAt: item.date,
+                    ),
                   ),
                 );
               } else {
@@ -273,32 +321,6 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
               }
             },
           ),
-          // body: FutureBuilder(
-          //   future: completionsApi.getNewForecast(),
-          //   builder: (BuildContext context,
-          //       AsyncSnapshot<CompletionsResponse> snapshot) {
-          //     if (snapshot.hasData) {
-          //       // the request succeeded and we have data
-          //       return Text(
-          //         snapshot.data!.choices[0].text,
-          //         style: const TextStyle(
-          //           color: Colors.white,
-          //         ),
-          //       );
-          //     } else if (snapshot.hasError) {
-          //       // the request failed
-          //       return Text(
-          //         'Error: ${snapshot.error}',
-          //         style: const TextStyle(
-          //           color: Colors.white,
-          //         ),
-          //       );
-          //     } else {
-          //       // the request is still loading
-          //       return CircularProgressIndicator();
-          //     }
-          //   },
-          // ),
           bottomNavigationBar: Container(
             margin: const EdgeInsets.all(4.0),
             color: Colors.transparent,
