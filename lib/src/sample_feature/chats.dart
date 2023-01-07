@@ -22,6 +22,7 @@ class Messages {
     required this.text,
     this.prevMessage,
     this.nextMessage,
+    this.replyMessage,
   });
 
   int id;
@@ -32,4 +33,5 @@ class Messages {
   String text;
   Messages? prevMessage;
   Messages? nextMessage;
+  Messages? replyMessage;
 }

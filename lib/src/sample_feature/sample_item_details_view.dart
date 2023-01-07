@@ -24,103 +24,210 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
 
   late List<Chats> chats = [
     Chats(
-      name: "Grace",
+      name: "Putri",
       type: "personal_chat",
       id: 2730825451,
       messages: messages,
     ),
   ];
   late List<Messages> messages = [
+    //Reply
     Messages(
-      id: 1980499,
+      id: 1,
       type: "massage",
-      date: DateTime.parse("2023-01-01T00:00:02"),
-      from: "Henry",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
       fromId: 4325636679,
-      text: "Pesan 1",
+      text: "sayg",
       prevMessage: null,
       nextMessage: Messages(
-        id: 1980500,
+        id: 1981499,
         type: "massage",
-        date: DateTime.parse("2023-01-01T00:22:04"),
-        from: "Henry",
-        fromId: 4325636679,
-        text: "Pesan 2",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
+        fromId: 2,
+        text: "kamu sayang ngga sih, sama aku?? 🧐",
       ),
     ),
     Messages(
-      id: 1980500,
+      id: 2,
       type: "massage",
-      date: DateTime.parse("2023-01-01T00:22:04"),
-      from: "Henry",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
       fromId: 4325636679,
-      text: "Pesan 2",
+      text: "kamu sayang ngga sih, sama aku?? 🧐",
       prevMessage: Messages(
-        id: 1980499,
+        id: 1,
         type: "massage",
-        date: DateTime.parse("2023-01-01T00:00:02"),
-        from: "Henry",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
         fromId: 4325636679,
-        text: "Pesan 1",
+        text: "sayg",
       ),
       nextMessage: null,
     ),
+    // Me
     Messages(
-      id: 1980501,
+      id: 3,
       type: "massage",
-      date: DateTime.parse("2023-01-01T00:00:05"),
-      from: "Grace",
-      fromId: 4720225552,
-      text: "Pesan Reply 1",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "David",
+      fromId: 4325636673,
+      text: "aduuuuh, kita udah pacaran dari zaman nabi Idris loh,",
       prevMessage: null,
       nextMessage: Messages(
-        id: 1984501,
+        id: 4,
         type: "massage",
-        date: DateTime.parse("2023-01-01T00:00:05"),
-        from: "Grace",
-        fromId: 4720225552,
-        text: "Pesan Reply 2",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "David",
+        fromId: 4325636673,
+        text:
+            "dan kamu masih saja menanyakan aku sayang apa engga? jelas sayang dooong 👺",
       ),
     ),
     Messages(
-      id: 1984501,
+      id: 4,
       type: "massage",
-      date: DateTime.parse("2023-01-01T00:00:05"),
-      from: "Grace",
-      fromId: 4720225552,
-      text: "Pesan Reply 2",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "David",
+      fromId: 4325636673,
+      text:
+          "dan kamu masih saja menanyakan aku sayang apa engga? jelas sayang dooong 👺",
       prevMessage: Messages(
-        id: 1980501,
+        id: 3,
         type: "massage",
-        date: DateTime.parse("2023-01-01T00:00:05"),
-        from: "Grace",
-        fromId: 4720225552,
-        text: "Pesan Reply 1",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "David",
+        fromId: 4325636673,
+        text: "aduuuuh, kita udah pacaran dari zaman nabi Idris loh,",
       ),
+      nextMessage: null,
+    ),
+    // Reply
+    Messages(
+      id: 5,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
+      fromId: 4325636679,
+      text: "kok kamu balesnya cepet banget",
+      prevMessage: null,
       nextMessage: Messages(
-        id: 1954501,
+        id: 6,
         type: "massage",
-        date: DateTime.parse("2023-01-07T00:00:05"),
-        from: "Grace",
-        fromId: 4720225552,
-        text: "Pesan Reply 3",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
+        fromId: 4325636679,
+        text: "lagi chattingan sama siapa?",
       ),
     ),
     Messages(
-      id: 1954501,
+      id: 6,
       type: "massage",
-      date: DateTime.parse("2023-01-07T00:00:05"),
-      from: "Grace",
-      fromId: 4720225552,
-      text: "Pesan Reply 3",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
+      fromId: 4325636679,
+      text: "lagi chattingan sama siapa?",
       prevMessage: Messages(
-        id: 1984501,
+        id: 5,
         type: "massage",
-        date: DateTime.parse("2023-01-01T00:00:05"),
-        from: "Grace",
-        fromId: 4720225552,
-        text: "Pesan Reply 2",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
+        fromId: 4325636679,
+        text: "kok kamu balesnya cepet banget",
       ),
+      nextMessage: null,
+    ),
+    // Me
+    Messages(
+      id: 7,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "David",
+      fromId: 4325636673,
+      text:
+          "ngga ada chattinga sama siapa, ya kamu chat aku langsung bales doooong",
+      prevMessage: null,
+      nextMessage: Messages(
+        id: 8,
+        type: "massage",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "David",
+        fromId: 4325636673,
+        text: "kan prioritas 🥰🥰",
+      ),
+    ),
+    Messages(
+      id: 8,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "David",
+      fromId: 4325636673,
+      text: "kan prioritas 🥰🥰",
+      prevMessage: Messages(
+        id: 7,
+        type: "massage",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "David",
+        fromId: 4325636673,
+        text:
+            "ngga ada chattinga sama siapa, ya kamu chat aku langsung bales doooong",
+      ),
+      nextMessage: null,
+    ),
+    // Reply
+    Messages(
+      id: 9,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
+      fromId: 4325636679,
+      text: "halah, BOONG\nkamu lagi chat sama cewe lain kaaan, NGAKU! 😡🤬",
+      prevMessage: null,
+      nextMessage: Messages(
+        id: 10,
+        type: "massage",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
+        fromId: 4325636679,
+        text: "kok make emot gini, kamu ngga sayang lagi kan sama aku 😭😡",
+      ),
+    ),
+    Messages(
+      id: 10,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "Putri",
+      fromId: 4325636679,
+      text: "kok make emot gini, kamu ngga sayang lagi kan sama aku 😭😡",
+      prevMessage: Messages(
+        id: 9,
+        type: "massage",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "Putri",
+        fromId: 4325636679,
+        text: "halah, BOONG\nkamu lagi chat sama cewe lain kaaan, NGAKU! 😡🤬",
+      ),
+      nextMessage: null,
+      replyMessage: Messages(
+        id: 4,
+        type: "massage",
+        date: DateTime.parse(DateTime.now().toIso8601String()),
+        from: "David",
+        fromId: 4325636673,
+        text:
+            "dan kamu masih saja menanyakan aku sayang apa engga? jelas sayang dooong 👺",
+      ),
+    ),
+    // Me
+    Messages(
+      id: 11,
+      type: "massage",
+      date: DateTime.parse(DateTime.now().toIso8601String()),
+      from: "David",
+      fromId: 4325636673,
+      text: "Alluakbar, maaf sayang aku udah mati, dikuburan sinyalnya jelek.",
+      prevMessage: null,
       nextMessage: null,
     ),
   ];
@@ -132,6 +239,8 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
   int? _idMessageHighlight;
 
   double? _dx, _dy;
+
+  String? senstiment = 'Loading…';
 
   @override
   void initState() {
@@ -168,7 +277,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                    Text('Jonathan Edward'),
+                    Text('Putri Cannia 💩'),
                     Text(
                       'online',
                       style: TextStyle(
@@ -184,15 +293,15 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             ),
             actions: [
               IconButton(
-                onPressed: () => print('action'),
+                onPressed: () {},
                 icon: const Icon(Icons.videocam_rounded),
               ),
               IconButton(
-                onPressed: () => print('action'),
+                onPressed: () {},
                 icon: const Icon(Icons.call_rounded),
               ),
               IconButton(
-                onPressed: () => print('action'),
+                onPressed: () {},
                 icon: const Icon(Icons.more_vert_rounded),
               ),
             ],
@@ -216,7 +325,7 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             order: GroupedListOrder.DESC,
             reverse: true,
             floatingHeader: true,
-            useStickyGroupSeparators: true,
+            useStickyGroupSeparators: false,
             groupBy: (Messages item) => DateTime(
               item.date.year,
               item.date.month,
@@ -251,40 +360,28 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
             itemBuilder: (_, Messages item) {
               if (item.from == chats[0].name) {
                 return InkWell(
-                  // onTap: () async {
-                  //   try {
-                  //     final res =
-                  //         await completionsApi.getNewForecast('Aku benci kamu');
-                  //     debugPrint('_xxx Y Sentiment is: ${res.choices[0].text}');
-                  //   } catch (e) {
-                  //     debugPrint('_xxx Y Error $e');
-                  //   }
-                  // },
-                  // onLongPress: () {
-                  //   setState(() {
-                  //     _isLongPressed = true;
-                  //   });
-                  // },
-                  // onLongPressUp: () {
-                  //   setState(() {
-                  //     _isLongPressed = false;
-                  //   });
-                  // },
                   onTapDown: (details) {
                     _dx = details.globalPosition.dx;
                     _dy = details.globalPosition.dy;
                   },
 
                   ///
-                  onLongPress: () {
+                  onLongPress: () async {
                     setState(() {
                       _isLongPressed = true;
                       _idMessageHighlight = item.id;
                     });
+
                     showDialog(
                       context: context,
                       barrierColor: Colors.transparent,
-                      builder: (context) => ReactDialog(dx: _dx!, dy: _dy!),
+                      builder: (context) {
+                        return ReactDialog(
+                          dx: _dx!,
+                          dy: _dy!,
+                          message: item.text,
+                        );
+                      },
                     ).whenComplete(
                       () => setState(() {
                         _isLongPressed = false;
@@ -300,13 +397,17 @@ class _SampleItemDetailsViewState extends State<SampleItemDetailsView> {
                         : Colors.transparent,
                     child: BubbleChatReply(
                       bgColor: _isLongPressed && _idMessageHighlight == item.id
-                          ? AppColor.green2.withOpacity(0.5)
+                          ? AppColor.green4
                           : AppColor.black,
                       tail: item.prevMessage == null ||
                           item.date.day != item.prevMessage?.date.day ||
                           item.date.hour != item.prevMessage?.date.hour,
                       message: item.text,
                       sendAt: item.date,
+                      replay: item.replyMessage != null,
+                      msgReply: item.replyMessage != null
+                          ? item.replyMessage!.text
+                          : 'Message replyed',
                     ),
                   ),
                 );

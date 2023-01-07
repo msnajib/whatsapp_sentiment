@@ -12,6 +12,8 @@ class BubbleChatReply extends StatelessWidget {
   final DateTime sendAt;
   final Color? bgColor;
 
+  final String? msgReply;
+
   const BubbleChatReply({
     Key? key,
     bool? tail,
@@ -19,6 +21,7 @@ class BubbleChatReply extends StatelessWidget {
     required this.message,
     required this.sendAt,
     this.bgColor,
+    this.msgReply,
   })  : tail = tail ?? false,
         replay = replay ?? false,
         super(key: key);
@@ -35,15 +38,15 @@ class BubbleChatReply extends StatelessWidget {
                 alignment: Alignment.center,
                 transform: Matrix4.rotationY(math.pi),
                 child: CustomPaint(
-                  painter: CustomShape(AppColor.black),
+                  painter: CustomShape(bgColor ?? Colors.black),
                 ),
               )
             : const SizedBox(),
         Flexible(
           child: Container(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 10.0,
-              vertical: 8.0,
+            padding: EdgeInsets.symmetric(
+              horizontal: replay == true ? 4.0 : 10.0,
+              vertical: replay == true ? 4.0 : 8.0,
             ),
             decoration: BoxDecoration(
               color: bgColor ?? Colors.black,
@@ -64,7 +67,7 @@ class BubbleChatReply extends StatelessWidget {
                           ),
                           margin: const EdgeInsets.only(bottom: 4.0),
                           decoration: const BoxDecoration(
-                            color: AppColor.green3,
+                            color: Colors.black38,
                             border: Border(
                               left: BorderSide(
                                 color: AppColor.yellow,
@@ -73,21 +76,24 @@ class BubbleChatReply extends StatelessWidget {
                             ),
                             // borderRadius: BorderRadius.all(Radius.circular(10.0)),
                           ),
-                          child: Wrap(
-                            spacing: 2.0,
-                            direction: Axis.vertical,
-                            children: const [
-                              Text(
-                                'Jonathan Edward',
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              const Text(
+                                'You',
                                 style: TextStyle(
                                   fontSize: 14.0,
                                   fontWeight: FontWeight.w500,
                                   color: AppColor.yellow,
                                 ),
                               ),
+                              const SizedBox(
+                                height: 2.0,
+                              ),
                               Text(
-                                'so yes I think we can start working on it',
-                                style: TextStyle(
+                                msgReply ?? 'Message replyed',
+                                overflow: TextOverflow.ellipsis,
+                                style: const TextStyle(
                                   fontSize: 14.0,
                                   color: Colors.white,
                                 ),
@@ -104,11 +110,17 @@ class BubbleChatReply extends StatelessWidget {
                   clipBehavior: Clip.antiAliasWithSaveLayer,
                   spacing: 6.0,
                   children: [
-                    Text(
-                      message,
-                      style: const TextStyle(
-                        color: Colors.white,
-                        fontSize: 16.0,
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: replay == true ? 6.0 : 0.0,
+                        vertical: replay == true ? 4.0 : 0.0,
+                      ),
+                      child: Text(
+                        message,
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16.0,
+                        ),
                       ),
                     ),
                     Padding(

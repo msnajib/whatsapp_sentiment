@@ -19,33 +19,30 @@ class CompletionsApi {
     'Authorization': 'Bearer $openAIApiKey',
   };
 
-  /// Gets a "weather forecast" from the OpenAI completions endpoint
-  Future<CompletionsResponse> getNewForecast(String message) async {
-    debugPrint('_xxx Getting a new weather forecast');
-
+  Future<CompletionsResponse> getSentiment(String message) async {
     CompletionsRequest request = CompletionsRequest(
-        model: "text-davinci-003",
-        prompt: "${message}\nSentiment:",
-        temperature: 0,
-        maxTokens: 60,
-        topP: 1,
-        frequencyPenalty: 0.5,
-        presencePenalty: 0);
-    // debugPrint('_xxx Sending OpenAI API request with prompt, "${completionsPrompts[promptIndex]}", and temperature, $temp.');
+      model: "text-davinci-003",
+      prompt: "$message\nSentiment:",
+      temperature: 0,
+      maxTokens: 225,
+      topP: 1,
+      frequencyPenalty: 0.5,
+      presencePenalty: 0,
+    );
     http.Response response = await http.post(
       completionsEndpoint,
       headers: headers,
       body: jsonEncode(request),
     );
-    debugPrint('_xxx Received OpenAI API response: ${response.body}');
+    debugPrint('Received OpenAI API response: ${response.body}');
     // Check to see if there was an error
     if (response.statusCode != 200) {
-      // TODO handle errors
       debugPrint(
-          '_xxx Failed to get a forecast with status code, ${response.statusCode}');
+          'Failed to get a forecast with status code, ${response.statusCode}');
     }
-    CompletionsResponse completionsResponse =
-        CompletionsResponse.fromJson(jsonDecode(response.body));
+    CompletionsResponse completionsResponse = CompletionsResponse.fromJson(
+      jsonDecode(response.body),
+    );
     return completionsResponse;
   }
 }
